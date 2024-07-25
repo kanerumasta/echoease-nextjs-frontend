@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
 import { Footer, Navbar } from "@/components/common";
 import StoreProvider from "@/redux/provider";
 import { Setup } from "@/components/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: "400",
+});
 
 export const metadata: Metadata = {
     title: "Echoease",
@@ -19,13 +22,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={inter.className}>
+            <body className={`${poppins.className} bg-blue-200 min-h-screen`}>
                 <StoreProvider>
                     <Setup />
                     <Navbar />
-                    <div className="pt-12">
-                    {children}
-                    </div>
+                    <div className="pt-12">{children}</div>
                     <Footer />
                 </StoreProvider>
             </body>
