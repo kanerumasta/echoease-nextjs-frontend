@@ -2,6 +2,7 @@ import { UseFormRegister } from "react-hook-form";
 import Link  from "next/link";
 
 interface FormFieldProps {
+    type?:string
     label: string;
     register: UseFormRegister<any>;
     name: string;
@@ -12,6 +13,7 @@ interface FormFieldProps {
 }
 
 export default function FormField({
+    type,
     label,
     register,
     name,
@@ -39,6 +41,7 @@ export default function FormField({
             </div>{" "}
             <div className="mt-2">
                 <input
+                    type = {type ? type : "text"}
                     id={name}
                     {...register(name)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

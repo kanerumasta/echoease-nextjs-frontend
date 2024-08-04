@@ -1,9 +1,12 @@
-import ChatList from '@/components/chat'
+import {ChatList, ChatContent } from '@/components/chat'
+import { useEffect } from 'react';
 
 
 export default function Page() {
+        
     return <div>
-        <ChatList />
+        <div>
+        </div>
         {/* chatlist */}
             {/* --chatlistsearch */}
             {/* --chatlistcard */}

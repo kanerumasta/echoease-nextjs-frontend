@@ -1,7 +1,7 @@
 "use client"
 
 import { useChatMessages } from "@/hooks/chat"
-import { useRetrieveChatMessagesQuery } from "@/redux/features/chatApiSlice"
+import { useFetchMessagesQuery } from "@/redux/features/chatApiSlice"
 import { useParams } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { toast } from "react-toastify"

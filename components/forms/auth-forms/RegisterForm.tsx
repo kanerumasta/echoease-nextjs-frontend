@@ -28,12 +28,14 @@ export default function RegisterForm() {
                 key="email"
             />
             <FormField
+                type="password"
                 label="Password"
                 name="password"
                 register={register}
                 key="password"
             />
             <FormField
+                type="password"
                 label="Confirm Password"
                 name="re_password"
                 register={register}

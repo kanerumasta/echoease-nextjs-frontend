@@ -4,6 +4,7 @@ import { useActivationMutation } from "@/redux/features/authApiSlice";
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { ROUTES } from "@/conf";
 
 interface Props {
     params: {
@@ -26,7 +27,7 @@ export default function Page({ params }: Props) {
                 .catch(() => {
                     toast.error("Failed to activate your account");
                 })
-                .finally(() => router.replace("/auth/login"));
+                .finally(() => router.replace(ROUTES.auth.login));
         }
 
         return () => {
