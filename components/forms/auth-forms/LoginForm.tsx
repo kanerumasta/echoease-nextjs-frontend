@@ -1,38 +1,62 @@
 "use client";
-import { useLogin } from "@/hooks/auth";
 import { Spinner } from "@/components/common";
-import FormField from "./FormField";
-import { SocialButtons } from "../../utils";
-import { ROUTES } from "@/conf";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useLogin } from "@/hooks/auth";
+
 
 export default function LoginForm() {
-  const { onSubmit, register, isLoading, isSuccess } = useLogin();
-
+  const { form, isLoading, onSubmit } = useLogin();
   return (
-    <>
-      <form onSubmit={onSubmit} className="space-y-6">
-        <FormField register={register} label="Email" name="email" />
+    <Form {...form}>
+      <form onSubmit={onSubmit}>
         <FormField
-          register={register}
-          type="password"
-          label="Password"
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Email Address"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="password"
-          link={{
-            href: ROUTES.auth.resetPassword,
-            label: "Forgot Password?",
-          }}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Your Password"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription></FormDescription>
+            </FormItem>
+          )}
         />
 
-        <div>
-          <button
-            type="submit"
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            {isLoading ? <Spinner sm /> : "Sign in"}
-          </button>
-        </div>
+        <Button
+          className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          type="submit"
+        >
+          {isLoading ? <Spinner sm /> : "Sign in"}
+        </Button>
       </form>
-      <SocialButtons />
-    </>
+    </Form>
   );
 }

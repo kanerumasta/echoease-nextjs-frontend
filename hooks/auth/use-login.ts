@@ -13,19 +13,19 @@ const LoginSchema = z.object({
   password: z.string(),
 });
 
-type TLoginSchema = z.infer<typeof LoginSchema>;
 
 export default function useLogin() {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { register, handleSubmit } = useForm<TLoginSchema>({
+  const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
   });
 
   const [loginUser, { isLoading, isSuccess }] = useLoginUserMutation();
 
-  const onSubmit = handleSubmit((data: TLoginSchema) => {
+  const onSubmit = form.handleSubmit((data: z.infer<typeof LoginSchema>) => {
+    console.log("OnSubmit fired");
     const validatedData = LoginSchema.safeParse(data);
     if (!validatedData.success) {
       toast.error("Invalid Data Passed");
@@ -45,8 +45,8 @@ export default function useLogin() {
   });
 
   return {
-    register,
-    onSubmit,
+   form,
+   onSubmit,
     isLoading,
     isSuccess,
   };

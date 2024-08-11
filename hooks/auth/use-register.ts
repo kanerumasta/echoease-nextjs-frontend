@@ -13,18 +13,18 @@ const SignupSchema = z.object({
     re_password: z.string(),
 });
 
-type TSignupSchema = z.infer<typeof SignupSchema>;
+
 
 export default function useRegister() {
     const router = useRouter();
 
-    const { register, handleSubmit } = useForm<TSignupSchema>({
+    const form = useForm<z.infer<typeof SignupSchema>>({
         resolver: zodResolver(SignupSchema),
     });
 
     const [registerNewUser, { isLoading }] = useRegisterNewUserMutation();
 
-    const onSubmit = handleSubmit((data: TSignupSchema) => {
+    const onSubmit = form.handleSubmit((data: z.infer<typeof SignupSchema>) => {
         const validatedData = SignupSchema.safeParse(data);
         if (!validatedData.success) {
             toast.error("Invalid Data Passed");
@@ -40,7 +40,7 @@ export default function useRegister() {
     });
 
     return {
-        register,
+        form,
         isLoading,
         onSubmit,
     };

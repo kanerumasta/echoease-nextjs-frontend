@@ -33,6 +33,6 @@ export default function Page({ params }: Props) {
         return () => {
             refRan.current = true;
         };
-    }, [params]);
+    }, [params, activation, router]);
     return <div>Activating your account....</div>;
 }

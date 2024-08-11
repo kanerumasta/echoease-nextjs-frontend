@@ -9,13 +9,13 @@ const ResetPasswordSchema = z.object({
     email: z.string().email(),
 });
 
-type TResetPasswordSchema = z.infer<typeof ResetPasswordSchema>;
+
 
 export default function useResetPassword() {
     const [resetPassword,{isLoading}] = useResetPasswordMutation();
-    const { register, handleSubmit } = useForm<TResetPasswordSchema>();
+    const form = useForm<z.infer<typeof ResetPasswordSchema>>();
 
-    const onSubmit = handleSubmit((data: TResetPasswordSchema) => {
+    const onSubmit = form.handleSubmit((data: z.infer<typeof ResetPasswordSchema>) => {
         const validatedData = ResetPasswordSchema.safeParse(data);
         if (!validatedData.success) {
             toast.error("Email is not valid");
@@ -30,7 +30,7 @@ export default function useResetPassword() {
     });
 
     return {
-        register,
+        form,
         isLoading,
         onSubmit,
     };

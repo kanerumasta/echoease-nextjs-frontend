@@ -24,7 +24,7 @@ export default function Page(){
         
 
         return () => socket.close()
-    },[])
+    },[wsURL])
 
     return <div>
         <button onClick={()=>{

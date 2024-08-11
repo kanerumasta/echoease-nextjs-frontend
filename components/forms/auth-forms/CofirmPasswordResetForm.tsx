@@ -1,14 +1,49 @@
 "use client";
 
 import { Spinner } from "@/components/common";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useConfirmPasswordReset } from "@/hooks/auth";
 
 export default function ConfirmPasswordReset() {
-    const { register, onSubmit, isLoading } = useConfirmPasswordReset();
+  const { form, onSubmit, isLoading } = useConfirmPasswordReset();
 
-    return (
-        <form onSubmit={onSubmit} className="space-y-6">
-            <div>
+  return (
+    <Form {...form}>
+      <form onSubmit={onSubmit} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="new_password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>New Password</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="re_new_password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm New Password</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <Button type="submit">{isLoading ? <Spinner sm /> : "Submit"}</Button>
+        {/* <div>
                 <label
                     htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -39,8 +74,9 @@ export default function ConfirmPasswordReset() {
                 </div>
             </div>
             <button disabled={isLoading} type="submit">
-                {isLoading ? <Spinner sm /> : "Submit"}
-            </button>
-        </form>
-    );
+                
+            </button> */}
+      </form>
+    </Form>
+  );
 }

@@ -9,17 +9,19 @@ const ResetPasswordSchema = z.object({
     new_password: z.string(),
     re_new_password: z.string(),
 
-});
+}).refine(values=>{
+    return values.new_password === values.re_new_password
+},{message:"Passwords do not match"});
 
-type TResetPasswordSchema = z.infer<typeof ResetPasswordSchema>;
+
 
 export default function useConfirmPasswordReset() {
     const params = useParams<{ uid: string; token: string }>();
     const [resetPasswordConfirm, {isLoading}] = useResetPasswordConfirmMutation();
-    const { register, handleSubmit } = useForm<TResetPasswordSchema>();
+    const form = useForm<z.infer<typeof ResetPasswordSchema>>();
     const router = useRouter();
 
-    const onSubmit = handleSubmit((data: TResetPasswordSchema) => {
+    const onSubmit = form.handleSubmit((data: z.infer<typeof ResetPasswordSchema>) => {
         const validatedData = ResetPasswordSchema.safeParse(data);
         const token = params.token;
         const uid = params.uid;
@@ -46,7 +48,7 @@ export default function useConfirmPasswordReset() {
     });
 
     return {
-        register,
+        form,
         isLoading,
         onSubmit,
     };

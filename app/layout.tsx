@@ -1,7 +1,8 @@
-import { Footer, Navbar } from "@/components/common";
-import { Setup } from "@/components/utils";
-import StoreProvider from "@/redux/provider";
 import "@/styles/globals.css";
+
+import { Footer, Navbar } from "@/components/common";
+import { ToastProvider } from "@/lib/react-toastify";
+import StoreProvider from "@/redux/provider";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
@@ -24,10 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className}`}>
         <StoreProvider>
-          <Setup />
+          <ToastProvider>
             <Navbar />
             {children}
             <Footer />
+          </ToastProvider>
         </StoreProvider>
       </body>
     </html>

@@ -2,14 +2,90 @@
 
 import { useRegister } from "@/hooks/auth";
 import { Spinner } from "@/components/common";
-import FormField from "./FormField";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function RegisterForm() {
-    const { onSubmit, register, isLoading } = useRegister();
+  const { onSubmit, form, isLoading } = useRegister();
 
-    return (
-        <form onSubmit={onSubmit} className="space-y-6">
-            <FormField
+  return (
+    <Form {...form}>
+      <form onSubmit={onSubmit} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="first_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First Name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="last_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Last Name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="re_password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <Button
+          type="submit"
+          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          {isLoading ? <Spinner sm /> : "Sign up"}
+        </Button>
+        {/* <FormField
                 label="First Name"
                 name="first_name"
                 register={register}
@@ -40,15 +116,15 @@ export default function RegisterForm() {
                 name="re_password"
                 register={register}
                 key="cpassword"
-            />
-            <div>
+            /> */}
+        {/* <div>
                 <button
-                    type="submit"
-                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    
                 >
-                    {isLoading ? <Spinner sm /> : "Sign up"}
+                    
                 </button>
-            </div>
-        </form>
-    );
+            </div> */}
+      </form>
+    </Form>
+  );
 }

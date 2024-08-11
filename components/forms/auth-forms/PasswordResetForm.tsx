@@ -1,17 +1,38 @@
 "use client";
 import { useResetPassword } from "@/hooks/auth";
 import { Spinner } from "@/components/common";
-import FormField from "./FormField";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function PasswordResetForm() {
-    const { register, onSubmit, isLoading } = useResetPassword();
+  const { form, onSubmit, isLoading } = useResetPassword();
 
-    return (
-        <form onSubmit={onSubmit} className="space-y-6">
-            <FormField label="Email" register={register} name="email" />
-            <button disabled={isLoading} type="submit">
-                {isLoading ? <Spinner /> : "Continue"}
-            </button>
-        </form>
-    );
+  return (
+    <Form {...form}>
+      <form onSubmit={onSubmit} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <Button disabled={isLoading} type="submit">
+          {isLoading ? <Spinner /> : "Continue"}
+        </Button>
+      </form>
+    </Form>
+  );
 }
