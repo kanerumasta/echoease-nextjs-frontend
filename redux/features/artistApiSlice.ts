@@ -9,7 +9,13 @@ const artistApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    fetchMyArtistProfile: builder.query<any,void>({
+      query: () => "/artists/my-artist-profile/",
+    }),
   }),
 });
 
-export const { useCreateArtistApplicationMutation } = artistApiSlice;
+export const {
+  useCreateArtistApplicationMutation,
+  useFetchMyArtistProfileQuery,
+} = artistApiSlice;
