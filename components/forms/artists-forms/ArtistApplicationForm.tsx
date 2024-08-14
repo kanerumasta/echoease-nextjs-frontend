@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useCreateArtistApplication } from "@/hooks/artists";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 export default function ArtistApplicationForm() {
   const { form, onSubmit, isLoading, isSuccess } = useCreateArtistApplication();
@@ -121,26 +121,7 @@ export default function ArtistApplicationForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="profile_image"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Zip Code</FormLabel>
-              <FormControl>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    if (e.target.files?.[0]) {
-                      form.setValue("profile_image", e.target.files[0]);
-                    }
-                  }}
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+       
         <FormField
           control={form.control}
           name="sample_video1"

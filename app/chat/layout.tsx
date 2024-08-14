@@ -1,14 +1,11 @@
-"use client"
 
-import { useFetchChatsQuery } from "@/redux/features/chatApiSlice";
-import React from "react";
 
+import { ChatLayout } from "@/components/chat"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const {data:chats, isLoading} = useFetchChatsQuery()
-  console.log(chats)
-   return <div>
-
-     {children}
-   </div>
+  return (
+    <ChatLayout>
+      {children}
+    </ChatLayout>
+  )
 }

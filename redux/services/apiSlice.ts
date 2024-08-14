@@ -5,7 +5,6 @@ import type {
 } from "@reduxjs/toolkit/query";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Mutex } from "async-mutex";
-import { toast } from "react-toastify";
 import {
   finishInitialLoad,
   logout,

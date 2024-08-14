@@ -1,20 +1,25 @@
 interface SocialButtonProps {
-    callBack: () => void;
-    text: string;
-    icon: any;
-    color?: string;
+  callBack: () => void;
+  text: string;
+  icon: any;
+  color?: string;
 }
 
 export default function SocialButton({
-    callBack,
-    text,
-    color,
-    icon,
+  callBack,
+  text,
+  color,
+  icon,
 }: SocialButtonProps) {
-    return (
-        <button className={`p-4 mt-5 ${color}`} onClick={() => callBack()}>
-            {icon}
-            {text}
-        </button>
-    );
+  return (
+    <button
+      type="button"
+      className={`p-3 rounded-md w-[180px] border-[1px] border-gray-250 border-solid  flex items-center justify-center ${color}`}
+      onClick={() => callBack()}
+    >
+      {icon}
+      <div className="mx-1"></div>
+      {text}
+    </button>
+  );
 }

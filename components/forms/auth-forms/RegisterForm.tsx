@@ -5,43 +5,79 @@ import { Spinner } from "@/components/common";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { SocialButtons } from "@/components/utils";
+import { Separator } from "@/components/ui/separator";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Label } from "@/components/ui/label";
 
 export default function RegisterForm() {
-  const { onSubmit, form, isLoading } = useRegister();
+  const { onSubmit, form, isLoading, isSuccess, isError } = useRegister();
+  const router = useRouter();
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Please check you email for activation.");
+      router.replace("/auth/login");
+    }
+    if (isError) {
+      toast.error("Please complete the required fields.");
+    }
+  }, [isSuccess, isError]);
 
   return (
     <Form {...form}>
-      <form onSubmit={onSubmit} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="first_name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>First Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="last_name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Last Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+      <form onSubmit={onSubmit} className="space-y-4 ">
+        <SocialButtons />
+        <div className="flex w-full my-4 items-center">
+          <Separator className="flex-1" />
+          <span className="mx-2 text-gray-400 text-sm">OR CONTINUE WITH</span>
+          <Separator className="flex-1" />
+        </div>
+        <div className="flex">
+          <FormField
+            control={form.control}
+            name="first_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Type first name here" {...field} />
+                </FormControl>
+                {form.formState.errors.first_name && (
+                  <FormDescription className="text-red-400">
+                    {form.formState.errors.first_name.message}
+                  </FormDescription>
+                )}
+              </FormItem>
+            )}
+          />
+          <Separator className="bg-transparent w-2" />
+          <FormField
+            control={form.control}
+            name="last_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Type last name here" {...field} />
+                </FormControl>
+                {form.formState.errors.last_name && (
+                  <FormDescription className="text-red-400">
+                    {form.formState.errors.last_name.message}
+                  </FormDescription>
+                )}
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="email"
@@ -49,8 +85,13 @@ export default function RegisterForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input placeholder="Type email here" {...field} />
               </FormControl>
+              {form.formState.errors.email && (
+                <FormDescription className="text-red-400">
+                  {form.formState.errors.email.message}
+                </FormDescription>
+              )}
             </FormItem>
           )}
         />
@@ -61,8 +102,17 @@ export default function RegisterForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  placeholder="Type password here"
+                  type="password"
+                  {...field}
+                />
               </FormControl>
+              {form.formState.errors.password && (
+                <FormDescription className="text-red-400">
+                  {form.formState.errors.password.message}
+                </FormDescription>
+              )}
             </FormItem>
           )}
         />
@@ -73,8 +123,17 @@ export default function RegisterForm() {
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  placeholder="Confirm your password"
+                  type="password"
+                  {...field}
+                />
               </FormControl>
+              {form.formState.errors.re_password && (
+                <FormDescription className="text-red-400">
+                  {form.formState.errors.re_password.message}
+                </FormDescription>
+              )}
             </FormItem>
           )}
         />
@@ -85,45 +144,6 @@ export default function RegisterForm() {
         >
           {isLoading ? <Spinner sm /> : "Sign up"}
         </Button>
-        {/* <FormField
-                label="First Name"
-                name="first_name"
-                register={register}
-                key="fname"
-            />
-            <FormField
-                label="Last Name"
-                name="last_name"
-                register={register}
-                key="lname"
-            />
-            <FormField
-                label="Email"
-                name="email"
-                register={register}
-                key="email"
-            />
-            <FormField
-                type="password"
-                label="Password"
-                name="password"
-                register={register}
-                key="password"
-            />
-            <FormField
-                type="password"
-                label="Confirm Password"
-                name="re_password"
-                register={register}
-                key="cpassword"
-            /> */}
-        {/* <div>
-                <button
-                    
-                >
-                    
-                </button>
-            </div> */}
       </form>
     </Form>
   );

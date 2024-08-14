@@ -2,7 +2,7 @@
 import { useResetPasswordConfirmMutation } from "@/redux/features/authApiSlice";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const ResetPasswordSchema = z.object({

@@ -1,10 +1,10 @@
 import "@/styles/globals.css";
 
 import { Footer, Navbar } from "@/components/common";
-import { ToastProvider } from "@/lib/react-toastify";
 import StoreProvider from "@/redux/provider";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,11 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className}`}>
         <StoreProvider>
-          <ToastProvider>
+          
             <Navbar />
             {children}
             <Footer />
-          </ToastProvider>
+            <Toaster richColors position="top-right"/>
         </StoreProvider>
       </body>
     </html>

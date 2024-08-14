@@ -1,4 +1,3 @@
-
 import { RegisterForm } from "@/components/forms/auth-forms";
 import { ROUTES } from "@/conf";
 
@@ -11,14 +10,14 @@ const Page = () => {
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           className="mx-auto h-10 w-auto"
         /> */}
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign up for an account
         </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
         <RegisterForm />
-        <p className="mt-10 text-center text-sm text-gray-500">
+        <p className="mt-4 text-center text-sm text-gray-500">
           Already have an account?{" "}
           <a
             href={ROUTES.auth.login}

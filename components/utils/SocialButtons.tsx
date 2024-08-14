@@ -4,18 +4,18 @@ import { ImGoogle, ImFacebook } from "react-icons/im";
 
 export default function SocialButtons() {
     return (
-        <div className="flex items-center ">
+        <div className="flex items-center my-4 justify-between ">
             <SocialButton
                 callBack={continueWithGoogle}
                 text="Google"
                 icon={<ImGoogle />}
-                color="bg-red-400"
+                
             />
             <SocialButton
                 callBack={continueWithFacebook}
                 text="Facebook"
                 icon={<ImFacebook />}
-                color="bg-blue-400"
+                
             />
         </div>
     );

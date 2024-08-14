@@ -5,14 +5,16 @@ import { useAppDispatch } from "@/redux/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
+
 import { z } from "zod";
 
 const LoginSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: z
+    .string({ message: "Email is a required field" })
+    .email({ message: "Please enter a valid email" }),
+  password: z.string({ message: "Password is a required field" }),
 });
-
 
 export default function useLogin() {
   const router = useRouter();
@@ -22,7 +24,8 @@ export default function useLogin() {
     resolver: zodResolver(LoginSchema),
   });
 
-  const [loginUser, { isLoading, isSuccess }] = useLoginUserMutation();
+  const [loginUser, { isLoading, isSuccess, isError, error }] =
+    useLoginUserMutation();
 
   const onSubmit = form.handleSubmit((data: z.infer<typeof LoginSchema>) => {
     console.log("OnSubmit fired");
@@ -33,21 +36,21 @@ export default function useLogin() {
     }
     loginUser(validatedData.data)
       .unwrap()
-      .then(() => {
-        toast.success(`Logged in as ${validatedData.data.email}`);
-        setTimeout(() => {
-          window.location.href = ROUTES.echoHunt;
-        }, 2000);
+      .then((res) => {
+        console.log(res)
       })
-      .catch(() => {
-        toast.error("Email or password is incorrect");
+      .catch((err) => {
+        toast.error(err.error);
+        console.log(err);
       });
   });
 
   return {
-   form,
-   onSubmit,
+    form,
+    onSubmit,
     isLoading,
     isSuccess,
+    isError,
+    error,
   };
 }

@@ -1,5 +1,6 @@
-import { TResetPasswordConfirmSchema } from "@/schemas/auth-schemas";
+import { z } from "zod";
 import { apiSlice } from "../services/apiSlice";
+import { ResetPasswordConfirmSchema, UserSchema } from "@/schemas";
 
 interface User {
   first_name: string;
@@ -20,7 +21,7 @@ interface CreateUserResponse {
 
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    fetchUser: builder.query<any, void>({
+    fetchUser: builder.query<z.infer<typeof UserSchema>, void>({
       query: () => "/users/me",
     }),
     loginUser: builder.mutation({
@@ -77,7 +78,7 @@ const authApiSlice = apiSlice.injectEndpoints({
         token,
         new_password,
         re_new_password,
-      }: TResetPasswordConfirmSchema) => ({
+      }: z.infer<typeof ResetPasswordConfirmSchema>) => ({
         url: "/users/reset_password_confirm/",
         method: "POST",
         body: { uid, token, new_password, re_new_password },

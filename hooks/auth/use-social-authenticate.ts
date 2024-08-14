@@ -1,7 +1,7 @@
 import { useSocialAuthenticateMutation } from "@/redux/features/authApiSlice";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 export default function useSocialAuth(provider: string) {
     const refRan = useRef(false);

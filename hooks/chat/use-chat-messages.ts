@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 
 export default function useChatMessages (code:string) {
     const [messages, setMessages] = useState()
-    
     const {data, isLoading} = useFetchMessagesQuery(code)
 
     useEffect(()=>{

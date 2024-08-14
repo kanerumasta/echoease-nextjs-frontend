@@ -1,6 +1,6 @@
 import { LoginForm } from "@/components/forms/auth-forms";
 import { ROUTES } from "@/conf";
-import "react-toastify/dist/ReactToastify.css";
+
 
 const Page = () => {
   return (
@@ -16,15 +16,15 @@ const Page = () => {
         </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
         <LoginForm />
 
-        <p className="mt-10 text-center text-sm text-gray-500">
+        <p className="mt-4 text-center text-sm text-gray-500">
           <>
             <span>Don't have an account?</span>
             <a
               href={ROUTES.auth.register}
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              className="font-semibold ml-2 leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Sign up here
             </a>
