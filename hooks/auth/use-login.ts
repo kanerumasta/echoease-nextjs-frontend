@@ -28,7 +28,6 @@ export default function useLogin() {
     useLoginUserMutation();
 
   const onSubmit = form.handleSubmit((data: z.infer<typeof LoginSchema>) => {
-    console.log("OnSubmit fired");
     const validatedData = LoginSchema.safeParse(data);
     if (!validatedData.success) {
       toast.error("Invalid Data Passed");

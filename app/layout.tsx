@@ -5,6 +5,7 @@ import StoreProvider from "@/redux/provider";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,14 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.className}`}>
+    <html className={cn(poppins.className)} lang="en">
+      <body>
         <StoreProvider>
-          
-            <Navbar />
-            {children}
-            <Footer />
-            <Toaster richColors position="top-right"/>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster richColors position="top-right" />
         </StoreProvider>
       </body>
     </html>

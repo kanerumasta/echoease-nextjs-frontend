@@ -12,15 +12,15 @@ export default function Navbar() {
   const path = usePathname();
 
   return (
-    <nav className="p-4 w-full flex items-center justify-between">
+    <nav className=" h-[70px] flex items-center mx-4 justify-between">
       <h2 className="text-2xl font-bold">
         <span className="text-blue-500">Echo</span>ease
       </h2>
-      <div className="flex ">
+      <div className="flex items-center gap-4">
         <Link href={ROUTES.chat}><RiChatSmile2Fill size={30} color="#3569bd" /></Link>
 
         {!user && path === ROUTES.home && (
-          <div>
+          <div className="flex items-center gap-4">
             <Link
               className="p-2 rounded-xl bg-blue-500"
               href={ROUTES.auth.login}
@@ -28,7 +28,7 @@ export default function Navbar() {
               Sign In
             </Link>
             <Link
-              className="p-2 rounded-xl bg-slate-500"
+              className=""
               href={ROUTES.auth.register}
             >
               Sign Up

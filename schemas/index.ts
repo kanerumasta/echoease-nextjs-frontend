@@ -16,6 +16,7 @@ export const UserSchema = z.object({
   last_name: z.string(),
   email: z.string().email(),
   id: z.number(),
+  profile_image : z.string().nullable()
 });
 
 export const ProfileSchema = z.object({
@@ -57,3 +58,23 @@ export const ArtistApplicationSchema = z.object({
   sample_video2: z.instanceof(File).optional(),
   sample_video3: z.instanceof(File).optional(),
 });
+
+
+export const ArtistSchema = z.object({
+  user : UserSchema,
+  dob : z.string().date(),
+  gender : z.string(),
+  bio : z.string(),
+  brgy:z.string(),
+  city:z.string(),
+  country:z.string(),
+  cover_photo : z.string().nullable(),
+  fb_page : z.string(),
+  fb_profile_link : z.string(),
+  id:z.number(),
+  phone : z.string(),
+  slug : z.string(),
+  street: z.string(),
+  twitter : z.string(),
+  zipcode : z.string()
+})

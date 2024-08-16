@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <footer className="p-8 rounded-lg mt-4 bg-slate-200">
+        <footer className="p-8 mt-auto bg-gray-900 text-white/25">
             @Foota Inja Mo
         </footer>
     );

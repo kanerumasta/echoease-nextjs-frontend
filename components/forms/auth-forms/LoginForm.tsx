@@ -14,24 +14,32 @@ import { Separator } from "@/components/ui/separator";
 import { SocialButtons } from "@/components/utils";
 import { ROUTES } from "@/conf";
 import { useLogin } from "@/hooks/auth";
+import { useIsArtistQuery } from "@/redux/features/authApiSlice";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
 export default function LoginForm() {
   const { form, isLoading, onSubmit, isError, isSuccess, error } = useLogin();
-  useEffect(()=>{
-    if(isSuccess){
+  useEffect(() => {
+    if (isSuccess) {
       toast.success(`Logged in successfully`);
-        setTimeout(() => {
-          window.location.href = ROUTES.echoHunt;
-        }, 2000);
+      setTimeout(() => {
+        fetch(`${process.env.NEXT_PUBLIC_HOST}/api/users/me/is-artist`, {
+          credentials: "include",
+        })
+          .then((response) => {
+            if (response.ok) {
+              window.location.href = ROUTES.echoVerse;
+            } else {
+              window.location.href = ROUTES.echoHunt;
+            }
+          })
+          .catch(() => {
+            window.location.href = ROUTES.echoHunt;
+          });
+      }, 1000);
     }
-    if(isError){
-      
-      // toast.error('Email or password is incorrect.')
-    }
-
-  },[isSuccess, isError])
+  }, [isSuccess, isError]);
 
   return (
     <Form {...form}>
@@ -51,11 +59,11 @@ export default function LoginForm() {
               <FormControl>
                 <Input placeholder="Type email here" {...field} />
               </FormControl>
-              {form.formState.errors.email && 
+              {form.formState.errors.email && (
                 <FormDescription className="text-red-400">
                   {form.formState.errors.email.message}
                 </FormDescription>
-              }
+              )}
             </FormItem>
           )}
         />
@@ -67,13 +75,17 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Type password here" {...field} />
+                <Input
+                  type="password"
+                  placeholder="Type password here"
+                  {...field}
+                />
               </FormControl>
-              {form.formState.errors.password && 
+              {form.formState.errors.password && (
                 <FormDescription className="text-red-400">
                   {form.formState.errors.password.message}
                 </FormDescription>
-              }
+              )}
             </FormItem>
           )}
         />

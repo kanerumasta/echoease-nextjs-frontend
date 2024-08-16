@@ -5,11 +5,13 @@ import { ROUTES } from "./conf";
 export async function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const token = request.cookies.get("access")?.value;
-  if (!token) {
+  if (!token && !pathName.startsWith("/auth")) {
     return NextResponse.redirect(new URL(ROUTES.auth.login, request.nextUrl));
   }
 
- 
+  if (token && pathName.startsWith("/auth")) {
+    return NextResponse.redirect(new URL(ROUTES.home, request.nextUrl));
+  }
 
   if (pathName.startsWith("/echoverse")) {
     const response = await fetch(
@@ -31,5 +33,10 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/echoverse/:path*", "/echo-hunt/:path*", "/chat/:path*"],
+  matcher: [
+    "/auth/:path*",
+    "/echoverse/:path*",
+    "/echo-hunt/:path*",
+    "/chat/:path*",
+  ],
 };

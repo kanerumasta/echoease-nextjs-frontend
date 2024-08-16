@@ -1,9 +1,11 @@
+import { ArtistSchema } from "@/schemas";
 import { apiSlice } from "../services/apiSlice";
-import { TProfileSchema } from "@/schemas/user-schemas";
+import { z } from "zod";
+
 
 const AccountApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    updateProfile: builder.mutation<void, TProfileSchema>({
+    updateProfile: builder.mutation<void, z.infer<typeof ArtistSchema>>({
       query: (profileData) => ({
         url: "/account/",
         method: "PUT",

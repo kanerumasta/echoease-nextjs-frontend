@@ -20,7 +20,7 @@ import { getChatPartner } from "@/utils";
 
 export default function ChatContent() {
   const params = useParams<{ code: string }>();
-  const textAreaRef = useRef(null);
+  const textAreaRef = useRef<HTMLTextAreaElement|null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const currenUser = useFetchUserQuery();
   const currentChat = useFetchChatByCodeQuery(params.code);
@@ -80,8 +80,8 @@ export default function ChatContent() {
   };
 
   return (
-    <div>
-      <div className="bg-gray-200 p-4">
+    <div className="">
+      <div className="bg-gray-200 h-[50px]">
         <span>
           {currentChat.data &&
             getChatPartner(currentChat.data, currenUser.data?.email)}
@@ -89,7 +89,7 @@ export default function ChatContent() {
       </div>
       <div
         ref={scrollRef}
-        className="h-[60vh] overflow-y-scroll min-w-[600px] border-[1px] rounded-md border-gray-200 p-2 flex flex-col"
+        className=" bg-indigo-100 h-[75vh] overflow-y-scroll min-w-[600px] border-[1px] rounded-md p-2 flex flex-col"
       >
         {messages?.map((message) => (
           <div
@@ -112,9 +112,13 @@ export default function ChatContent() {
           </div>
         ))}
       </div>
-      <div className="flex mt-4 items-center">
-        <Textarea
-          className="max-h-[50px] resize-none"
+      <div className="flex 0 p-4  items-center">
+        
+        <textarea
+
+         rows={1}
+         
+          className="h-8 resize-none w-full outline-0 border-0 focus:border-0 focus:outline-none"
           ref={textAreaRef}
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
@@ -122,11 +126,14 @@ export default function ChatContent() {
         />
         <button
           onClick={() => {
-            if (chatWebsocket.current) {
+            if(newMessage.length === 0 && textAreaRef.current){
+              textAreaRef.current.focus()
+            }
+            if (chatWebsocket.current && newMessage.length > 0) {
               chatWebsocket.current.send(newMessage);
               setNewMessage("");
               if (textAreaRef.current) {
-                (textAreaRef.current as HTMLTextAreaElement).focus();
+                (textAreaRef.current).focus();
               }
             }
           }}

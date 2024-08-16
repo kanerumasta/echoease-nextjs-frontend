@@ -1,5 +1,4 @@
 export const ROUTES = {
-
   home: "/",
   auth: {
     login: "/auth/login",
@@ -9,10 +8,9 @@ export const ROUTES = {
     resetPassword: "/password-reset",
   },
   echoHunt: "/echo-hunt",
-  echoVerse: "echoverse",
+  echoVerse: "/echoverse",
   chat: "/chat",
 };
-
 
 export const PUBLIC_ROUTES = [
   ROUTES.home,
@@ -21,5 +19,4 @@ export const PUBLIC_ROUTES = [
   ROUTES.auth.facebook,
   ROUTES.auth.google,
   ROUTES.auth.resetPassword,
-
-]
+];

@@ -96,6 +96,9 @@ const authApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    isArtist: builder.query<any, void>({
+      query: () => "/users/me/is-artist",
+    }),
   }),
 });
 
@@ -109,4 +112,5 @@ export const {
   useVerifyUserMutation,
   useResetPasswordConfirmMutation,
   useResetPasswordMutation,
+  useIsArtistQuery
 } = authApiSlice;

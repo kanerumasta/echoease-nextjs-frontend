@@ -1,22 +1,44 @@
+"use client";
 
+import { Spinner } from "@/components/common";
+import { useFetchListArtistsQuery } from "@/redux/features/artistApiSlice";
+import Image from "next/image";
 
 //Clients feed
 export default function Page() {
-  return (
+  const listArtists = useFetchListArtistsQuery();
+  if (listArtists.isLoading) {
+    return (
       <div>
-        {/* BANNER */}
-        <div className="h-[200px] bg-blue-500"></div>
-        <div className="flex justify-evenly gap-4">
-          {/* CARDS */}
-          <div className="bg-slate-500 rounded-md w-[200px] h-[200px]"></div>
-          <div className="bg-slate-500 rounded-md w-[200px] h-[200px]"></div>
-          <div className="bg-slate-500 rounded-md w-[200px] h-[200px]"></div>
-          <div className="bg-slate-500 rounded-md w-[200px] h-[200px]"></div>
-          <div className="bg-slate-500 rounded-md w-[200px] h-[200px]"></div>
-          <div className="bg-slate-500 rounded-md w-[200px] h-[200px]"></div>
-          <div className="bg-slate-500 rounded-md w-[200px] h-[200px]"></div>
-          <div className="bg-slate-500 rounded-md w-[200px] h-[200px]"></div>
-        </div>
+        <Spinner lg />
+        <p>Loading...</p>
       </div>
+    );
+  }
+  console.log(listArtists.data);
+  return (
+    <div className="">
+      <div className="flex justify-evenly gap-4">
+        {listArtists.data?.map((artist) => (
+          <div>
+            <Image
+              src={`https://res.cloudinary.com/duqgjwp7q/${artist.user.profile_image}`}
+              alt="Profile Image"
+              width={200}
+              height={200}
+            />
+            <p></p>
+            <h1>{artist.gender}</h1>
+            <p>{artist.phone}</p>
+            <p>{artist.street}</p>
+            <p>{artist.brgy}</p>
+            <p>{artist.city}</p>
+            <p>{artist.country}</p>
+            <p>{artist.zipcode}</p>
+            <p>{artist.dob}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
