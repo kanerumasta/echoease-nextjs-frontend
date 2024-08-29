@@ -12,17 +12,18 @@ const artistApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    fetchMyArtistProfile: builder.query<z.infer<typeof ArtistSchema>,void>({
-      query: () => "/artists/my-artist-profile/",
-    }),
+    
     fetchListArtists : builder.query<z.infer<typeof ArtistSchema>[], void>({
       query: ()=>"/artists"
+    }),
+    fetchDetailArtistBySlug : builder.query<z.infer<typeof ArtistSchema>,string>({
+      query: (slug:string)=>`/artists/slug/${slug}`
     })
   }),
 });
 
 export const {
   useCreateArtistApplicationMutation,
-  useFetchMyArtistProfileQuery,
-  useFetchListArtistsQuery
+  useFetchListArtistsQuery,
+  useFetchDetailArtistBySlugQuery
 } = artistApiSlice;

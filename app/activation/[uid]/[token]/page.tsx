@@ -2,9 +2,10 @@
 
 import { useActivationMutation } from "@/redux/features/authApiSlice";
 import { useEffect, useRef } from "react";
-import { toast } from "react-toastify";
+
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/conf";
+import { toast } from "sonner";
 
 interface Props {
     params: {

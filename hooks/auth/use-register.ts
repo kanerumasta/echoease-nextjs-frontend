@@ -24,7 +24,7 @@ export default function useRegister() {
     resolver: zodResolver(SignupSchema),
   });
 
-  const [registerNewUser, { isLoading, isSuccess, isError }] =
+  const [registerNewUser, { isLoading, isSuccess, isError, error }] =
     useRegisterNewUserMutation();
 
   const onSubmit = form.handleSubmit((data: z.infer<typeof SignupSchema>) => {
@@ -45,5 +45,6 @@ export default function useRegister() {
     onSubmit,
     isSuccess,
     isError,
+    error
   };
 }

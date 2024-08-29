@@ -20,7 +20,8 @@ import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 
 export default function RegisterForm() {
-  const { onSubmit, form, isLoading, isSuccess, isError } = useRegister();
+  const { onSubmit, form, isLoading, isSuccess, isError, error } =
+    useRegister();
   const router = useRouter();
   useEffect(() => {
     if (isSuccess) {
@@ -28,7 +29,9 @@ export default function RegisterForm() {
       router.replace("/auth/login");
     }
     if (isError) {
-      toast.error("Please complete the required fields.");
+      toast.error(
+        "You already have registered. Check your email for activation"
+      );
     }
   }, [isSuccess, isError]);
 

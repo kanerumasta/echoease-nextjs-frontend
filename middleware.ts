@@ -38,5 +38,6 @@ export const config = {
     "/echoverse/:path*",
     "/echo-hunt/:path*",
     "/chat/:path*",
+    "/become-an-echoee",
   ],
 };

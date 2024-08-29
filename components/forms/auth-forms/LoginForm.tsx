@@ -15,6 +15,7 @@ import { SocialButtons } from "@/components/utils";
 import { ROUTES } from "@/conf";
 import { useLogin } from "@/hooks/auth";
 import { useIsArtistQuery } from "@/redux/features/authApiSlice";
+import Link from "next/link";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
@@ -38,6 +39,10 @@ export default function LoginForm() {
             window.location.href = ROUTES.echoHunt;
           });
       }, 1000);
+    }
+
+    if (isError) {
+      toast.error("Email or password is incorrect");
     }
   }, [isSuccess, isError]);
 
@@ -96,6 +101,12 @@ export default function LoginForm() {
         >
           {isLoading ? <Spinner sm /> : "Sign in"}
         </Button>
+        <Link
+          className="px-2 mt-2 text-sm text-gray-400 hover:text-blue-600 ease-in-out duration-300"
+          href={ROUTES.auth.resetPassword}
+        >
+          Forgot Password?
+        </Link>
       </form>
     </Form>
   );

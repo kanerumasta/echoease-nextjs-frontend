@@ -1,6 +1,7 @@
 "use client";
 
 import { Spinner } from "@/components/common";
+import { Button } from "@/components/ui/button";
 import { useFetchListArtistsQuery } from "@/redux/features/artistApiSlice";
 import Image from "next/image";
 
@@ -15,27 +16,30 @@ export default function Page() {
       </div>
     );
   }
-  console.log(listArtists.data);
   return (
     <div className="">
-      <div className="flex justify-evenly gap-4">
+      <div className="flex min-h-screen justify-evenly gap-4">
         {listArtists.data?.map((artist) => (
-          <div>
+          <div className="p-4">
             <Image
               src={`https://res.cloudinary.com/duqgjwp7q/${artist.user.profile_image}`}
               alt="Profile Image"
               width={200}
               height={200}
             />
+            {/* name */}
+            <div className="flex gap-1">
+              <span className="text-xl font-bold text-black capitalize">
+                {artist.user.first_name}
+              </span>
+              <span className="text-xl font-bold text-black capitalize">
+                {artist.user.last_name}
+              </span>
+            </div>
             <p></p>
-            <h1>{artist.gender}</h1>
-            <p>{artist.phone}</p>
-            <p>{artist.street}</p>
-            <p>{artist.brgy}</p>
-            <p>{artist.city}</p>
-            <p>{artist.country}</p>
-            <p>{artist.zipcode}</p>
-            <p>{artist.dob}</p>
+            <span>#Jazz</span>
+
+            <Button variant={"destructive"}>Hire Me</Button>
           </div>
         ))}
       </div>

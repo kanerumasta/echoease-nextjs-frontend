@@ -39,7 +39,6 @@ export default function useLogin() {
         console.log(res)
       })
       .catch((err) => {
-        toast.error(err.error);
         console.log(err);
       });
   });

@@ -1,6 +1,6 @@
 "use client";
-import { useResetPassword } from "@/hooks/auth";
 import { Spinner } from "@/components/common";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,10 +9,13 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useResetPassword } from "@/hooks/auth";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function PasswordResetForm() {
   const { form, onSubmit, isLoading } = useResetPassword();
+  const router = useRouter()
 
   return (
     <Form {...form}>
@@ -22,16 +25,19 @@ export default function PasswordResetForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
+              <FormLabel>Email Address</FormLabel>
+              <div className={cn("flex items-center")}>
+                <FormControl>
+                  <Input placeholder="Enter email" {...field} />
+                </FormControl>
+              </div>
             </FormItem>
           )}
         />
-        <Button disabled={isLoading} type="submit">
-          {isLoading ? <Spinner /> : "Continue"}
+        <Button className="w-full" disabled={isLoading} type="submit">
+          {isLoading ? <Spinner /> : "Send Email"}
         </Button>
+        <p className="text-sm text-gray-400 text-center hover:text-blue-500 duration-200  hover:cursor-pointer" onClick={()=>router.back()}>Back</p>
       </form>
     </Form>
   );
