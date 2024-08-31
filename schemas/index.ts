@@ -19,15 +19,18 @@ export const UserSchema = z.object({
   profile_image: z.string().nullable(),
 });
 
+const GenderSchema = z.union([z.literal("male"), z.literal("female")]);
+
 export const ProfileSchema = z.object({
-  dob: z.string(),
-  gender: z.string(),
-  phone: z.string(),
-  street: z.string(),
-  brgy: z.string(),
-  city: z.string(),
-  country: z.string(),
-  zipcode: z.string(),
+  dob: z.date({ required_error: "This field is required" }),
+  gender: GenderSchema,
+  phone: z.string({ required_error: "This field is required" }),
+  country: z.string().optional(),
+  province: z.string({ required_error: "This field is required" }),
+  municipality: z.string({ required_error: "This field is required" }),
+  brgy: z.string({ required_error: "This field is required" }),
+  street: z.string({ required_error: "This field is required" }),
+  zipcode: z.string({ required_error: "This field is required" }),
 });
 
 export const ChatSchema = z.object({
@@ -44,35 +47,36 @@ export const MessageSchema = z.object({
 });
 
 //Artist Schemas
+
+export const GenreOptionSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+  disable: z.boolean().optional(),
+});
+
+export const GenreSchema = z.object({
+  id: z.number().min(1),
+  name: z.string(),
+});
+
 export const ArtistApplicationSchema = z.object({
-  dob: z.string(),
-  phone: z.string(),
-  street: z.string(),
-  brgy: z.string(),
-  city: z.string(),
-  country: z.string(),
-  zipcode: z.string(),
-  gender: z.string(),
-  sample_video1: z.instanceof(File).optional(),
-  sample_video2: z.instanceof(File).optional(),
-  sample_video3: z.instanceof(File).optional(),
+  sample_videos: z
+    .array(z.instanceof(File))
+    .min(3, "At least 3 videos are required.")
+    .max(3, "You can only upload up to 3 videos."),
+  fb_page: z.string(),
+  instagram: z.string(),
+  twitter: z.string(),
+  fb_profile_link: z.string(),
+  genres: z.array(GenreOptionSchema),
 });
 
 export const ArtistSchema = z.object({
   user: UserSchema,
-  dob: z.string().date(),
-  gender: z.string(),
-  bio: z.string(),
-  brgy: z.string(),
-  city: z.string(),
-  country: z.string(),
-  cover_photo: z.string().nullable(),
   fb_page: z.string(),
   fb_profile_link: z.string(),
   id: z.number(),
-  phone: z.string(),
   slug: z.string(),
   street: z.string(),
   twitter: z.string(),
-  zipcode: z.string(),
 });

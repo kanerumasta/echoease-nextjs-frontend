@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { apiSlice } from "../services/apiSlice";
-import { ResetPasswordConfirmSchema, UserSchema } from "@/schemas";
+import {
+  ProfileSchema,
+  ResetPasswordConfirmSchema,
+  UserSchema,
+} from "@/schemas";
 
 interface User {
   first_name: string;
@@ -96,8 +100,17 @@ const authApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+
     isArtist: builder.query<any, void>({
       query: () => "/users/me/is-artist",
+    }),
+
+    profileSetup: builder.mutation<void, z.infer<typeof ProfileSchema>>({
+      query: (profileData) => ({
+        url: "/profile/",
+        method: "PUT",
+        body: profileData,
+      }),
     }),
   }),
 });
@@ -112,5 +125,6 @@ export const {
   useVerifyUserMutation,
   useResetPasswordConfirmMutation,
   useResetPasswordMutation,
-  useIsArtistQuery
+  useIsArtistQuery,
+  useProfileSetupMutation
 } = authApiSlice;

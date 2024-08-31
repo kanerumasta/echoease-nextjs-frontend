@@ -12,12 +12,17 @@ export default function Navbar() {
   const path = usePathname();
 
   return (
-    <nav className=" h-[70px] flex items-center mx-4 justify-between">
+    <nav className=" h-[70px] flex items-center mx-[180px] justify-between">
       <h2 className="text-2xl font-bold">
         <span className="text-blue-500">Echo</span>ease
       </h2>
       <div className="flex items-center gap-4">
-        <Link href={ROUTES.chat}><RiChatSmile2Fill size={30} color="#3569bd" /></Link>
+        {!path.includes("/become-an-echoee") && (
+          <Link href={"/become-an-echoee/get-started"}>Become an Echoee</Link>
+        )}
+        <Link href={ROUTES.chat}>
+          <RiChatSmile2Fill size={30} color="#3569bd" />
+        </Link>
 
         {!user && path === ROUTES.home && (
           <div className="flex items-center gap-4">
@@ -27,10 +32,7 @@ export default function Navbar() {
             >
               Sign In
             </Link>
-            <Link
-              className=""
-              href={ROUTES.auth.register}
-            >
+            <Link className="" href={ROUTES.auth.register}>
               Sign Up
             </Link>
           </div>

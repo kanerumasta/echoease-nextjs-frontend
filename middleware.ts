@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
 
   if (pathName.startsWith("/echoverse")) {
     const response = await fetch(
-      "http:/localhost:8000/api/users/me/is-artist",
+      `${process.env.NEXT_PUBLIC_HOST}/api/users/me/is-artist`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -26,6 +26,25 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(new URL("/forbidden", request.url));
+    }
+  }
+
+  console.log("PATH IS", pathName);
+  if (pathName === "/become-an-echoee") {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/profile/is-complete`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        return NextResponse.redirect(new URL("/profile-setup", request.url));
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
