@@ -99,6 +99,7 @@ const authApiSlice = apiSlice.injectEndpoints({
           "Content-Type": "x-www-form-urlencoded",
         },
       }),
+    
     }),
 
     isArtist: builder.query<any, void>({
@@ -111,6 +112,9 @@ const authApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: profileData,
       }),
+    }),
+    isCompleteProfile: builder.query<any, void>({
+      query: () => "/profile/is-complete",
     }),
   }),
 });
@@ -126,5 +130,6 @@ export const {
   useResetPasswordConfirmMutation,
   useResetPasswordMutation,
   useIsArtistQuery,
-  useProfileSetupMutation
+  useProfileSetupMutation,
+  useIsCompleteProfileQuery,
 } = authApiSlice;

@@ -1,1 +1,1 @@
-export { default as SetupProfileForm } from "./SetupProfileForm";
+export {default as ReviewApplicationForm} from './review-application-form'

@@ -41,7 +41,7 @@ export default function DetailForm() {
   return (
     <>
       <h1 className="my-4 text-2xl font-bold text-center">Echoee Identity</h1>
-      <div className="p-4 rounded-xl min-h-96 bg-slate-100">
+      <div className="p-4 rounded-xl min-h-96">
       <FormField
         control={control}
         name="genres"

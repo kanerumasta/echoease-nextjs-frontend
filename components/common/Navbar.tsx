@@ -4,17 +4,26 @@ import { ROUTES } from "@/conf";
 import { useFetchUserQuery } from "@/redux/features/authApiSlice";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import UserMenu from "./UserMenu";
+import UserMenu from "./user-menu";
 import { RiChatSmile2Fill } from "react-icons/ri";
+import Image from "next/image";
+import { useState } from "react";
+
 
 export default function Navbar() {
   const { data: user, isLoading } = useFetchUserQuery();
+
   const path = usePathname();
 
   return (
     <nav className=" h-[70px] flex items-center mx-[180px] justify-between">
       <h2 className="text-2xl font-bold">
-        <span className="text-blue-500">Echo</span>ease
+        <Image
+          alt="logo"
+          width={200}
+          height={100}
+          src={"/media/echo-logo.png"}
+        />
       </h2>
       <div className="flex items-center gap-4">
         {!path.includes("/become-an-echoee") && (
@@ -39,6 +48,7 @@ export default function Navbar() {
         )}
         {user && <UserMenu user={user} />}
       </div>
+     
     </nav>
   );
 }

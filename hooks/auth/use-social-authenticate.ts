@@ -4,7 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 
-export default function useSocialAuth(provider: string, providerName : string) {
+export default function useSocialAuth(provider: string, providerName: string) {
   const refRan = useRef(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -20,6 +20,9 @@ export default function useSocialAuth(provider: string, providerName : string) {
         .then(() => {
           router.push(ROUTES.echoHunt);
           toast.success(`Log in with ${providerName} sucessful`);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         })
         .catch(() => {
           router.push(ROUTES.auth.login);

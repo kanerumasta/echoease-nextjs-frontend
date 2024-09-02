@@ -20,7 +20,12 @@ import { z } from "zod";
 
 import GenderPicker from "@/components/common/gender-picker";
 
-import { DatePicker } from "@/components/common";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -28,16 +33,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEffect, useState } from "react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import AddProfilePic from "./add-profile-picture";
 
 const provinceSchema = z.object({
   code: z.string(),
@@ -54,8 +54,9 @@ const barangaySchema = z.object({
   name: z.string(),
 });
 
-export default function Page() {
-  const [profileSetup, { isLoading, isSuccess }] = useProfileSetupMutation();
+export default function ProfileSetup() {
+  const [profileSetup, { isLoading }] = useProfileSetupMutation();
+  const [doneProfileDetails, setDoneProfileDetails] = useState(false);
   const [provinces, setProvinces] = useState<
     z.infer<typeof provinceSchema>[] | []
   >([]);
@@ -80,7 +81,9 @@ export default function Page() {
     console.log(data);
     profileSetup(data)
       .unwrap()
-      .then(() => toast.success("sucee"))
+      .then(() => {
+        setDoneProfileDetails(true);
+      })
       .catch(() => console.log("err"));
   });
 
@@ -175,6 +178,10 @@ export default function Page() {
     }
   }, [selectedMunicipalityCode]);
 
+  if (doneProfileDetails) {
+    return <AddProfilePic />;
+  }
+
   return (
     <div>
       <h1 className="text-center text-2xl text-black font-bold">
@@ -224,11 +231,6 @@ export default function Page() {
                         />
                       </PopoverContent>
                     </Popover>
-                    {/* <Input
-                      className="w-full hover:bg-[#2f9fe1] duration-150 ease-in-out cursor-pointer"
-                      type="date"
-                      {...field}
-                    /> */}
                   </FormControl>
                 </FormItem>
               )}
@@ -268,7 +270,6 @@ export default function Page() {
                   <FormLabel className="font-bold">Province</FormLabel>
 
                   <Select
-                  
                     {...field}
                     onValueChange={(value) => {
                       field.onChange(value);

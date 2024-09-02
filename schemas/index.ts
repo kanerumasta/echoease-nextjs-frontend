@@ -64,17 +64,15 @@ export const ArtistApplicationSchema = z.object({
     .array(z.instanceof(File))
     .min(3, "At least 3 videos are required.")
     .max(3, "You can only upload up to 3 videos."),
-  fb_page: z.string(),
   instagram: z.string(),
   twitter: z.string(),
-  fb_profile_link: z.string(),
+  fb_link: z.string(),
   genres: z.array(GenreOptionSchema),
 });
 
 export const ArtistSchema = z.object({
   user: UserSchema,
-  fb_page: z.string(),
-  fb_profile_link: z.string(),
+  fb_link: z.string(),
   id: z.number(),
   slug: z.string(),
   street: z.string(),

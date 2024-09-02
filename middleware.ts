@@ -29,24 +29,24 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  console.log("PATH IS", pathName);
-  if (pathName === "/become-an-echoee") {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/profile/is-complete`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        return NextResponse.redirect(new URL("/profile-setup", request.url));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // console.log("PATH IS", pathName);
+  // if (pathName === "/become-an-echoee") {
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_HOST}/api/profile/is-complete`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     if (!response.ok) {
+  //       return NextResponse.redirect(new URL("/profile-setup", request.url));
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   return NextResponse.next();
 }
